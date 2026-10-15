@@ -81,10 +81,10 @@ public:
 
 /*
 =================================
-APPROACH 2: MERGE BOTH OF THE LIST INTO ONE WITHOUT CREATING A NEW LIST
+APPROACH 2: INSERTING LIST2 NODE INTO LIST1
+            WITHOUT CREATING A NEW LIST
 Status    : The Optimal Solution, but NOT the Most Modular (unfinished)
 =================================
-*/
 
 class Solution {
 public:
@@ -122,6 +122,48 @@ public:
         if(curr2!=nullptr){
             prev->next = curr2;
         }
+        
+        return dummy->next;
+    }
+};
+*/
+
+/*
+====================================
+APPROACH 3: COMPARE TGE FIRST NODE OF BOTH LIST,
+            THEN MERGE THEM WITHOUT CREATING A NEW LIST
+Status : The Standard Solution (Finished, with the help of AI)
+====================================
+Note: I've never thought that we can use approach one method
+      without creating a new linked list.
+*/
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode;
+        ListNode* tail = dummy;
+        
+        while(l1 != nullptr && l2 != nullptr){
+            if(l1->val <= l2->val){
+                tail->next = l1;
+                l1 = l1->next;
+            }
+            else{
+                tail->next = l2;
+                l2 = l2->next;
+            }
+            tail = tail->next;
+        }
+        
+        /*if(l1 != nullptr){
+            tail->next = l1;
+        }
+        else{
+            tail->next = l2;
+        }
+        */
+        tail->next = (l1 != nullptr) ? l1 : l2;
         
         return dummy->next;
     }

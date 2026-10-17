@@ -5,41 +5,20 @@ public:
         int m = nums2.size();
         int length = n+m;
         
-        int left = 0;
-        int right = 0;
-        int counter = 0;
-        int smaller = 0;
-        int prev = 0;
+        int left = 0, right = 0;
+        int smaller = 0, prev = 0;
             
-        while(counter<= length/2){
-            if(left>=n){
-                prev = smaller;
-                smaller = nums2[right];
-                right++;
-            }
-            else if(right>=m){
-                prev = smaller;
-                smaller = nums1[left];
-                left++;
-            }            
-            else if(nums1[left]<=nums2[right]){
-                prev = smaller;
-                smaller = nums1[left];
-                left++;
+        for(int i=0; i<=length/2; ++i){
+            prev = smaller;
+            
+            if(left<n && (right>=m || nums1[left] <= nums2[right])){
+                smaller = nums1[left++];
             }
             else{
-                prev = smaller;
-                smaller = nums2[right];
-                right++;
+                smaller = nums2[right++];
             }
-            counter++;
         }
         
-        if(length%2 == 1){
-            return smaller;
-        }
-        else{
-            return (smaller+prev)/2.0;
-        }
+        return (length%2 == 1) ? smaller : (prev+smaller)/2.0;
 }
 };
